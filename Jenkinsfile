@@ -16,11 +16,11 @@ pipeline {
 		stage('Deployment'){
 		    steps {
 			script {
-			 if ( env.ENV = 'QA' ){
+			 if ( env.ENV == 'QA' ){
         	sh 'cp target/PIPELINE.war /home/piyush/Extracted/apache-tomcat-9.0.88/webapps'
         	echo "deployment has been done on QA!"
 			 }
-			else ( env.ENV = 'UAT' ){
+			else ( env.ENV == 'UAT' ){
     		sh 'cp target/PIPELINE.war /home/piyush/Extracted/apache-tomcat-9.0.88/webapps'
 			echo "deployment has been done on UAT!"
 			}
