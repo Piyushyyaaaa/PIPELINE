@@ -2,8 +2,8 @@ pipeline {
 	agent any
 	
 	parameters {
-		choice(name: 'ENV', choices: ['QA','UAT'], description: 'Pick Environment value')
-	}
+		choice choices: ['DEV', 'QA', 'UAT'], name: 'ENV'
+                 }
 	stages {
 	    stage('Checkout') {
 	        steps {
