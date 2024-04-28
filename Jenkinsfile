@@ -1,6 +1,9 @@
 pipeline {
-	agent any 
+	agent any
 	
+	parameters {
+		choice(name: 'ENV', choices: ['QA','UAT'], description: 'Pick Environment value')
+	}
 	stages {
 	    stage('Checkout') {
 	        steps {
@@ -11,7 +14,16 @@ pipeline {
 			  sh '/home/piyush/Extracted/Maven_setup/apache-maven-3.9.6/bin/mvn install'
 	                 }}
 		stage('Deployment'){
-		   steps {
-		sh 'cp target/PIPELINE.war /home/piyush/Extracted/apache-tomcat-9.0.88/webapps'
-			}}	
+		    steps {
+			script {
+			 if ( env.ENV == 'QA' ){
+        	sh 'cp target/PIPELINE.war /home/piyush/Extracted/apache-tomcat-9.0.88/webapps'
+        	echo "deployment has been done on QA!"
+			 }
+			else ( env.ENV == 'UAT' ){
+    		sh 'cp target/PIPELINE.war /home/piyush/Extracted/apache-tomcat-9.0.88/webapps'
+    		echo "deployment has been done on UAT!"
+			}
+			
+			}}}	
 }}
